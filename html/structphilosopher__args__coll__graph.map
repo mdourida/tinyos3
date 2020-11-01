@@ -1,6 +1,0 @@
-<map id="philosopher_args" name="philosopher_args">
-<area shape="rect" id="node1" title=" " alt="" coords="53,184,186,211"/>
-<area shape="rect" id="node2" href="$structSymposiumTable.html" title="A symposium monitor." alt="" coords="53,95,186,121"/>
-<area shape="rect" id="node3" href="$structsymposium__t.html" title="A symposium definition." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node4" href="$structCondVar.html" title="Condition variables." alt="" coords="140,5,216,32"/>
-</map>

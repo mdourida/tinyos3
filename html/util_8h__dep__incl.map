@@ -1,9 +1,0 @@
-<map id="util.h" name="util.h">
-<area shape="rect" id="node1" title="Tinyos utility code." alt="" coords="144,5,199,32"/>
-<area shape="rect" id="node2" href="$kernel__dev_8h.html" title="Device management." alt="" coords="51,80,155,107"/>
-<area shape="rect" id="node4" href="$kernel__sched_8h.html" title="TinyOS kernel: The Scheduler API." alt="" coords="195,80,313,107"/>
-<area shape="rect" id="node3" href="$kernel__streams_8h.html" title="Support for I/O streams." alt="" coords="5,155,140,181"/>
-<area shape="rect" id="node5" href="$kernel__cc_8c.html" title="The implementation for concurrency control ." alt="" coords="223,229,317,256"/>
-<area shape="rect" id="node6" href="$kernel__proc_8h.html" title="The process table and process management." alt="" coords="215,155,325,181"/>
-<area shape="rect" id="node7" href="$kernel__cc_8h.html" title="Concurrency and preemption control API." alt="" coords="349,155,444,181"/>
-</map>
