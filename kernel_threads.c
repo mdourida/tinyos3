@@ -2,6 +2,25 @@
 #include "tinyos.h"
 #include "kernel_sched.h"
 #include "kernel_proc.h"
+#include "util.h"
+
+
+
+/* Initialize a PTCB */
+static inline void initialize_PTCB(PTCB* ptcb)
+{
+  
+  ptcb->argl = 0;
+  ptcb->args = NULL;
+  ptcb->exited=0;
+  ptcb->detached=0;
+  ptcb->exitval=0;
+  ptcb->refcount=0;
+
+
+  rlnode_init(& ptcb->ptcb_list_node, ptcb);
+}
+
 
 /** 
   @brief Create a new thread in the current process.

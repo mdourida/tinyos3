@@ -1,0 +1,215 @@
+\hypertarget{group__rlists}{}\doxysection{Resource lists}
+\label{group__rlists}\index{Resource lists@{Resource lists}}
+
+
+A simple and fast list implementation.  
+
+
+Collaboration diagram for Resource lists\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{group__rlists}
+\end{center}
+\end{figure}
+\doxysubsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__exceptions}{An execption-\/like library.}}
+\begin{DoxyCompactList}\small\item\em An exception-\/like mechanism for C. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}}
+\begin{DoxyCompactList}\small\item\em List node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries T\+R\+Y\+\_\+\+W\+I\+TH}(context)
+\item 
+\#define {\bfseries F\+I\+N\+A\+L\+LY}(excname)
+\item 
+\#define {\bfseries O\+N\+\_\+\+E\+R\+R\+OR}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}\label{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}} 
+typedef struct \mbox{\hyperlink{structprocess__control__block}{process\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga91aaadf0c3f9cef2293a99c69795323f}{P\+CB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}\label{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}} 
+typedef struct \mbox{\hyperlink{structthread__control__block}{thread\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga8e5eca0c5ec064a81ae9246c7d4f32ef}{T\+CB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}\label{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}} 
+typedef struct \mbox{\hyperlink{structcore__control__block}{core\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_gac3d551eb0caa1296280ea2278b4f1b11}{C\+CB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}\label{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}} 
+typedef struct \mbox{\hyperlink{structdevice__control__block}{device\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga5b4de7b0c72db6219c5a6dda2466181f}{D\+CB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}\label{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}} 
+typedef struct \mbox{\hyperlink{structfile__control__block}{file\+\_\+control\+\_\+block}} \mbox{\hyperlink{group__rlists_ga60c6c294fa1d8ea73ed270404fe5c17d}{F\+CB}}
+\begin{DoxyCompactList}\small\item\em Forward declaration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}\label{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}} 
+typedef struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}} $\ast$ \mbox{\hyperlink{group__rlists_gaae2ea9be18d20f0c80a62a2f8e2eed4d}{rlnode\+\_\+ptr}}
+\begin{DoxyCompactList}\small\item\em A convenience typedef. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}\label{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}} 
+typedef struct \mbox{\hyperlink{structresource__list__node}{resource\+\_\+list\+\_\+node}} \mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}}
+\begin{DoxyCompactList}\small\item\em List node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A simple and fast list implementation. 
+
+\hypertarget{group__rlists_autotoc_md23}{}\doxysubsubsection{Overview}\label{group__rlists_autotoc_md23}
+This data structure is a doubly-\/linked circular list, whose implementation is based on the splicing operation.
+
+In a circular list, the nodes form a ring. For example if a, b, and c are nodes, a ring may look like \begin{DoxyVerb}+--> a --> b --> c -->+
+|                     |
++<------<--------<----+
+\end{DoxyVerb}
+ where only the {\ttfamily next} pointer is drawn. The {\ttfamily prev} pointer of a node is always the opposite of {\ttfamily next}, i.\+e., {\ttfamily p-\/$>$next-\/$>$prev==p-\/$>$prev-\/$>$next==p}. In the following, we shall denote such a ring by \mbox{[}a,b,c\mbox{]}. Note that \mbox{[}b,c,a\mbox{]} and \mbox{[}c,a,b\mbox{]} are describing the same ring as \mbox{[}a,b,c\mbox{]}. A singleton ring has just one node, e.\+g., \mbox{[}a\mbox{]}.
+
+The splicing operation between two rlnodes a and b means simply to swap their {\ttfamily next} pointers (also adjusting the \textquotesingle{}prev\textquotesingle{} pointers appropriately). Splicing two nodes on different rings, joins the two rings. Splicing two nodes on the same ring, splits the ring. For example, {\ttfamily splice(a,c)} on ring \mbox{[}a,b,c,d\mbox{]} would create two rings \mbox{[}a,d\mbox{]} and \mbox{[}b,c\mbox{]}. A splice can be reversed by repeating it; continuing the previous example, given rings \mbox{[}a,d\mbox{]} and \mbox{[}b,c\mbox{]}, splice(a,c) will create ring \mbox{[}a,b,c,d\mbox{]} again. The precise definition of splice is the following\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}}* splice(\mbox{\hyperlink{structresource__list__node}{rlnode}}* a, \mbox{\hyperlink{structresource__list__node}{rlnode}}* b) \{}
+\DoxyCodeLine{    swap(\& a-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}}, \& b-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}-\/>\mbox{\hyperlink{structresource__list__node_a280b77fdcee186bcaade02f76322d183}{prev}});}
+\DoxyCodeLine{    swap(\& a-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}}, \& b-\/>\mbox{\hyperlink{structresource__list__node_a04b1ee9524cd800f14de2925141e3762}{next}});}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} b;}
+\DoxyCodeLine{\}}
+\end{DoxyCode}
+ In general, {\ttfamily splice(a,b)} applies the following transformation \begin{DoxyVerb}[a, x...]  [b, y...]   ==>   [a, y..., b, x...]
+[a, x..., b, y...]     ==>   [a, y...]  [b, x...]
+\end{DoxyVerb}
+
+
+To implement lists, an rlnode object is used as {\itshape sentinel}, that is, it holds no data and is not properly part of the list. If L is the list node, then ring \mbox{[}C, L, A, B\mbox{]} represents the list \{A,B,C\}. The empty list is represented as \mbox{[}L\mbox{]}.
+
+We now show some examples of list operations, implemented by splicing. Suppose that L is a pointer to the sentinel node of a list. Also, suppose that N is (pointer to) a node in a singleton ring \mbox{[}N\mbox{]} Then, the the following operation are implemented as shown (in pseudocode)\+: \begin{DoxyVerb}empty(L)              ::  return  L == L->next
+head(L)               ::  return  L->next
+tail(L)               ::  return  L->prev
+push_front(L, N)      ::  splice(L, N)
+push_back(L, N)       ::  splice(L->prev, N)
+pop_front(L)          ::  return splice(L, L->next)
+pop_back(L)           ::  return splice(L, L->prev) 
+remove(N)             ::  return splice(N->prev, N)
+insert_after(P, N)    ::  splice(P, N)
+insert_before(P, N)   ::  splice(P->prev, N)
+\end{DoxyVerb}
+
+
+These operations can be used to perform other operations. For example, if L1 and L2 are two lists, then we can append the nodes of L2 to L1 (leaving L2 empty), by the following two operations\+: \begin{DoxyVerb}push_back(L1, L2);
+remove(L2);
+\end{DoxyVerb}
+
+
+For more details on the implementation, please read the code of \mbox{\hyperlink{util_8h}{util.\+h}}.\hypertarget{group__rlists_autotoc_md24}{}\doxysubsubsection{Usage}\label{group__rlists_autotoc_md24}
+Resource lists are mostly useful as storage for lists of resources. The main type is the list node, type {\ttfamily rlnode}. Each {\ttfamily rlnode} object must be initialized before use, by calling either {\ttfamily rlnode\+\_\+init} or {\ttfamily rlnode\+\_\+new}. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structthread__control__block}{TCB}}* mytcb =...;}
+\DoxyCodeLine{\mbox{\hyperlink{structfile__control__block}{FCB}}* myfcb =...;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} n1, n2;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// The following four lines are equivalent }}
+\DoxyCodeLine{rlnode\_init(\& n1, mytcb); }
+\DoxyCodeLine{rlnode\_new(\& n1)-\/>tcb = mytcb;}
+\DoxyCodeLine{rlnode\_init(\& n1, NULL);  n1-\/>tcb = mytcb;}
+\DoxyCodeLine{rlnode\_new(\& n1);  n1-\/>tcb = mytcb;}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{n1-\/>fcb = myfcb;}
+\DoxyCodeLine{myfcb = n1-\/>fcb;}
+\end{DoxyCode}
+\hypertarget{group__rlists_autotoc_md25}{}\doxyparagraph{Creating lists}\label{group__rlists_autotoc_md25}
+A list is defined by a sentinel node. For example, 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} mylist;  }
+\DoxyCodeLine{rlnode\_new(\&mylist);}
+\end{DoxyCode}
+ Note that, although we did not store a value into the sentinel node, we actually could do so if desired.
+
+Once a list is created, it needs to be filled with data. There are routines for adding nodes to the head and tail of a list, or in an intermediate location. Also, lists can be compared for equality, have their length taken, checked for emptiness, etc. \begin{DoxySeeAlso}{See also}
+rlist\+\_\+push\+\_\+front 
+
+rlist\+\_\+push\+\_\+back
+\end{DoxySeeAlso}
+\hypertarget{group__rlists_autotoc_md26}{}\doxyparagraph{Intrusive lists}\label{group__rlists_autotoc_md26}
+In order to add nodes to a list, we must allocate {\ttfamily rlnode} objects somewhere in memory. It is absolutely legal to use {\ttfamily malloc()} for this purpose, but we must add code to free the allocated memory, which can be annoying.
+
+If we wish to store objects of a particular kind however, we can use a different technique\+: we can store an rlnode pointer inside the object itself. A list built by this trick is called an {\itshape intrusive list}.
+
+For example, suppose we want to maintain a list of T\+C\+Bs with high priority. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structresource__list__node}{rlnode}} hi\_pri\_list;  rlnode\_new(\&hi\_pri\_list);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{struct }\mbox{\hyperlink{structthread__control__block}{thread\_control\_block}} \{}
+\DoxyCodeLine{ .... \textcolor{comment}{// other stuff}}
+\DoxyCodeLine{ \mbox{\hyperlink{structresource__list__node}{rlnode}} hi\_pri\_node;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// initialize the node}}
+\DoxyCodeLine{\mbox{\hyperlink{structthread__control__block}{TCB}}* newtcb = ...;}
+\DoxyCodeLine{rlnode\_init(\& newtcb-\/>hi\_pri\_node, newtcb);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// then, we can just add the node to the list}}
+\DoxyCodeLine{rlist\_push\_back(\& hi\_pri\_list, \& newtcb-\/>hi\_pri\_node);}
+\end{DoxyCode}
+
+
+Because node {\ttfamily hi\+\_\+pri\+\_\+node} is stored inside the object, it is always available. The node can be removed and re-\/added to this or another list, and memory allocation/deallocation is not an issue. The implementation of tinyos3 uses this idea very extensively, in T\+CB, P\+CB and F\+CB. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__rlists_gaf343c484a1e3247f669b832f6cb0fce6}\label{group__rlists_gaf343c484a1e3247f669b832f6cb0fce6}} 
+\index{Resource lists@{Resource lists}!FINALLY@{FINALLY}}
+\index{FINALLY@{FINALLY}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{FINALLY}{FINALLY}}
+{\footnotesize\ttfamily \#define F\+I\+N\+A\+L\+LY(\begin{DoxyParamCaption}\item[{}]{excname }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} \_\_conc(\_\_xframe\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_, \_\_LINE\_\_).next = \_\_frame-\/>finalizers; \(\backslash\)}
+\DoxyCodeLine{    \_\_frame-\/>finalizers = \& \_\_conc(\_\_xframe\_, \_\_LINE\_\_) ;\(\backslash\)}
+\DoxyCodeLine{    auto \textcolor{keywordtype}{void} \_\_conc(\_\_action\_, \_\_LINE\_\_) (int); \(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_,\_\_LINE\_\_).handler = \_\_conc(\_\_action\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}
+\DoxyCodeLine{    void \_\_conc(\_\_action\_,\_\_LINE\_\_)(\textcolor{keywordtype}{int} excname) \(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group__rlists_gab5034f048fef6a41e7901a4e34368f3d}\label{group__rlists_gab5034f048fef6a41e7901a4e34368f3d}} 
+\index{Resource lists@{Resource lists}!ON\_ERROR@{ON\_ERROR}}
+\index{ON\_ERROR@{ON\_ERROR}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{ON\_ERROR}{ON\_ERROR}}
+{\footnotesize\ttfamily \#define O\+N\+\_\+\+E\+R\+R\+OR}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__handler__frame}{exception\_handler\_frame}} \_\_conc(\_\_xframe\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_, \_\_LINE\_\_).next = \_\_frame-\/>catchers; \(\backslash\)}
+\DoxyCodeLine{    \_\_frame-\/>catchers = \& \_\_conc(\_\_xframe\_, \_\_LINE\_\_) ;\(\backslash\)}
+\DoxyCodeLine{    auto \textcolor{keywordtype}{void} \_\_conc(\_\_action\_, \_\_LINE\_\_) (int); \(\backslash\)}
+\DoxyCodeLine{    \_\_conc(\_\_xframe\_,\_\_LINE\_\_).handler = \_\_conc(\_\_action\_,\_\_LINE\_\_);\(\backslash\)}
+\DoxyCodeLine{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}
+\DoxyCodeLine{    void \_\_conc(\_\_action\_,\_\_LINE\_\_)(\textcolor{keywordtype}{int} \_\_dummy) \(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{group__rlists_ga6dbafe1c80b34213de23960742a82ca1}\label{group__rlists_ga6dbafe1c80b34213de23960742a82ca1}} 
+\index{Resource lists@{Resource lists}!TRY\_WITH@{TRY\_WITH}}
+\index{TRY\_WITH@{TRY\_WITH}!Resource lists@{Resource lists}}
+\doxysubsubsection{\texorpdfstring{TRY\_WITH}{TRY\_WITH}}
+{\footnotesize\ttfamily \#define T\+R\+Y\+\_\+\+W\+I\+TH(\begin{DoxyParamCaption}\item[{}]{context }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{struct }\mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}} \_\_conc(\_\_try\_,\_\_LINE\_\_) = \(\backslash\)}
+\DoxyCodeLine{        \{ .catchers=NULL, .finalizers=NULL \};\(\backslash\)}
+\DoxyCodeLine{    \_\_exc\_push\_frame((context), \& \_\_conc(\_\_try\_ , \_\_LINE\_\_) ); \(\backslash\)}
+\DoxyCodeLine{    int \_\_conc(\_\_exception\_,\_\_LINE\_\_) = setjmp( \_\_conc(\_\_try\_,\_\_LINE\_\_).jbuf); \(\backslash\)}
+\DoxyCodeLine{    \_\_atomic\_signal\_fence(\_\_ATOMIC\_SEQ\_CST);\(\backslash\)}
+\DoxyCodeLine{    for(\textcolor{keyword}{struct} \mbox{\hyperlink{structexception__stack__frame}{exception\_stack\_frame}}* \_\_frame = \(\backslash\)}
+\DoxyCodeLine{        \_\_exc\_try((context), \_\_conc(\_\_exception\_, \_\_LINE\_\_) );\(\backslash\)}
+\DoxyCodeLine{        \_\_frame != NULL ; \(\backslash\)}
+\DoxyCodeLine{        \_\_frame = \_\_exc\_exit\_try(context)) \(\backslash\)}
+
+\end{DoxyCode}

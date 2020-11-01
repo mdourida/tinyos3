@@ -1,0 +1,62 @@
+\hypertarget{structcore}{}\doxysection{core Struct Reference}
+\label{structcore}\index{core@{core}}
+
+
+Collaboration diagram for core\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcore__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structcore_abf250699a03cf3b3218831763f9a34ef}\label{structcore_abf250699a03cf3b3218831763f9a34ef}} 
+\mbox{\hyperlink{bios_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} {\bfseries id}
+\item 
+\mbox{\Hypertarget{structcore_aaabb3f996172521c017aa81c1b45ae4a}\label{structcore_aaabb3f996172521c017aa81c1b45ae4a}} 
+\mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{interrupt\+\_\+handler}} $\ast$ {\bfseries bootfunc}
+\item 
+\mbox{\Hypertarget{structcore_ac6cf31d44de90f3165368c58dd385d9d}\label{structcore_ac6cf31d44de90f3165368c58dd385d9d}} 
+pthread\+\_\+t {\bfseries thread}
+\item 
+\mbox{\Hypertarget{structcore_a0c247e8d7b788ca1190e66a7c886b7eb}\label{structcore_a0c247e8d7b788ca1190e66a7c886b7eb}} 
+struct sigevent {\bfseries timer\+\_\+sigevent}
+\item 
+\mbox{\Hypertarget{structcore_a8386fc3a72077a996c277c7bf0ea8b4b}\label{structcore_a8386fc3a72077a996c277c7bf0ea8b4b}} 
+timer\+\_\+t {\bfseries timer\+\_\+id}
+\item 
+\mbox{\Hypertarget{structcore_a97324d90450b08ef61dc46a31927bc31}\label{structcore_a97324d90450b08ef61dc46a31927bc31}} 
+\mbox{\hyperlink{bios_8h_a11aeb47c6c66d331acd12556d0d4aedc}{interrupt\+\_\+handler}} $\ast$ {\bfseries intvec} \mbox{[}maximum\+\_\+interrupt\+\_\+no\mbox{]}
+\item 
+\mbox{\Hypertarget{structcore_a8bd74177e2b66e68d5dfeb2745455401}\label{structcore_a8bd74177e2b66e68d5dfeb2745455401}} 
+sig\+\_\+atomic\+\_\+t {\bfseries intpending} \mbox{[}maximum\+\_\+interrupt\+\_\+no\mbox{]}
+\item 
+\mbox{\Hypertarget{structcore_a3832c6bf48aad5b670014373d3706640}\label{structcore_a3832c6bf48aad5b670014373d3706640}} 
+sig\+\_\+atomic\+\_\+t {\bfseries int\+\_\+disabled}
+\item 
+\mbox{\Hypertarget{structcore_afcf81234f967c4cdbc9424dd8983be62}\label{structcore_afcf81234f967c4cdbc9424dd8983be62}} 
+sig\+\_\+atomic\+\_\+t {\bfseries halted}
+\item 
+\mbox{\Hypertarget{structcore_a80dc99e860c2b172d60837901f0ee51e}\label{structcore_a80dc99e860c2b172d60837901f0ee51e}} 
+\mbox{\hyperlink{group__rlists_gaa74c0c2c42ee954a2bfc695845fff5e1}{rlnode}} {\bfseries halted\+\_\+node}
+\item 
+\mbox{\Hypertarget{structcore_a28a352810361f25008874fb2cf226fe4}\label{structcore_a28a352810361f25008874fb2cf226fe4}} 
+pthread\+\_\+cond\+\_\+t {\bfseries halt\+\_\+cond}
+\item 
+\mbox{\Hypertarget{structcore_a19fed7799daf0da83dac44434a2a7ce9}\label{structcore_a19fed7799daf0da83dac44434a2a7ce9}} 
+int {\bfseries irq\+\_\+count}
+\item 
+\mbox{\Hypertarget{structcore_a2204c1dd0fa5ec1e2fef2bece44f9918}\label{structcore_a2204c1dd0fa5ec1e2fef2bece44f9918}} 
+int {\bfseries irq\+\_\+raised} \mbox{[}maximum\+\_\+interrupt\+\_\+no\mbox{]}
+\item 
+\mbox{\Hypertarget{structcore_a08215d1afa1c43092fb67e4ec9f716c8}\label{structcore_a08215d1afa1c43092fb67e4ec9f716c8}} 
+int {\bfseries irq\+\_\+delivered} \mbox{[}maximum\+\_\+interrupt\+\_\+no\mbox{]}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+bios.\+c\end{DoxyCompactItemize}

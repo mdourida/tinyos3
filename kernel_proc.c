@@ -3,6 +3,7 @@
 #include "kernel_cc.h"
 #include "kernel_proc.h"
 #include "kernel_streams.h"
+#include "kernel_sched.h"
 
 
 /* 
@@ -35,10 +36,14 @@ static inline void initialize_PCB(PCB* pcb)
   pcb->pstate = FREE;
   pcb->argl = 0;
   pcb->args = NULL;
+  pcb->thread_count = 0;
+
+
 
   for(int i=0;i<MAX_FILEID;i++)
     pcb->FIDT[i] = NULL;
 
+  rlnode_init(& pcb->ptcb_list, NULL);
   rlnode_init(& pcb->children_list, NULL);
   rlnode_init(& pcb->exited_list, NULL);
   rlnode_init(& pcb->children_node, pcb);
@@ -47,7 +52,16 @@ static inline void initialize_PCB(PCB* pcb)
 }
 
 
+
+
+
+
 static PCB* pcb_freelist;
+
+
+
+
+
 
 void initialize_processes()
 {
@@ -186,6 +200,27 @@ Pid_t sys_Exec(Task call, int argl, void* args)
 finish:
   return get_pid(newproc);
 }
+
+
+void start_thread(){
+
+  int exitval;
+
+  Task call= CURTHREAD->ptcb->task;
+
+  int argl = CURTHREAD->ptcb->argl;
+  void* args = CURTHREAD->ptcb->args;
+
+  exitval = call(argl,args);
+  Exit(exitval);
+
+
+}
+
+
+
+
+
 
 
 /* System call */
