@@ -4,7 +4,7 @@
 #include "kernel_proc.h"
 #include "kernel_streams.h"
 #include "kernel_sched.h"
-
+#include "tinyos.h"
 
 /* 
  The process table and related system calls:
@@ -192,7 +192,16 @@ Pid_t sys_Exec(Task call, int argl, void* args)
     the initialization of the PCB.
    */
   if(call != NULL) {
+    PTCB* ptcb=(PTCB*)malloc(sizeof(PTCB));
+    initialize_PTCB(ptcb);
+    ptcb->task=call;
+    ptcb->argl=argl;
+    ptcb->args=args;
+    rlist_push_front(& curproc->ptcb_list, & ptcb->ptcb_list_node);
+    ptcb->refcount++;
+    newproc->thread_count++;
     newproc->main_thread = spawn_thread(newproc, start_main_thread);
+    ptcb->tcb=newproc->main_thread;
     wakeup(newproc->main_thread);
   }
 
