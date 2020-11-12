@@ -87,12 +87,7 @@ typedef struct process_thread_control_block {
 
 } PTCB;
 
-
-
-
-
-
-
+void start_thread();
 
 /**
   @brief Initialize the process table.
