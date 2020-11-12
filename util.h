@@ -365,7 +365,6 @@ static inline rlnode* rlnode_new(rlnode* p)
 static inline rlnode* rlnode_init(rlnode* p, void* ptr)  
 {
 	rlnode_new(p)->obj = ptr; 
-	
 	return p;
 }
 
