@@ -15,6 +15,8 @@ void start_thread(){
   int argl = CURTHREAD->ptcb->argl;
   void* args = CURTHREAD->ptcb->args;
 
+
+
   exitval = call(argl,args);
   ThreadExit(exitval);
 
@@ -24,6 +26,7 @@ void start_thread(){
   @brief Create a new thread in the current process.
   */
 Tid_t sys_CreateThread(Task task, int argl, void* args)
+
 {  
   if(task!=NULL){
     TCB* tcb=spawn_thread(CURPROC,start_thread);
@@ -55,14 +58,18 @@ Tid_t sys_CreateThread(Task task, int argl, void* args)
     return (Tid_t) ptcb;
     }
   return NOTHREAD;
+
+
 }
 
 /**
   @brief Return the Tid of the current thread.
  */
 Tid_t sys_ThreadSelf()
+
 { 
 	return (Tid_t) (CURTHREAD->ptcb);
+
 }
 
 /**

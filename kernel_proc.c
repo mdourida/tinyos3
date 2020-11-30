@@ -4,7 +4,6 @@
 #include "kernel_proc.h"
 #include "kernel_streams.h"
 
-
 /* 
  The process table and related system calls:
  - Exec
@@ -179,7 +178,7 @@ Pid_t sys_Exec(Task call, int argl, void* args)
     we do, because once we wakeup the new thread it may run! so we need to have finished
     the initialization of the PCB.
    */
-  if(call != NULL) {
+  if (call != NULL) {
     newproc->main_thread = spawn_thread(newproc, start_main_thread);
     TCB* tcb=newproc->main_thread;
 
