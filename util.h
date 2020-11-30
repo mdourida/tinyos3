@@ -316,6 +316,7 @@ typedef struct resource_list_node {
     DCB* dcb;
     FCB* fcb;
     PTCB* ptcb;
+
     void* obj;
     rlnode_ptr node;
     intptr_t num;
@@ -365,7 +366,6 @@ static inline rlnode* rlnode_new(rlnode* p)
 static inline rlnode* rlnode_init(rlnode* p, void* ptr)  
 {
 	rlnode_new(p)->obj = ptr; 
-	
 	return p;
 }
 
