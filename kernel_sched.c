@@ -159,7 +159,7 @@ TCB* spawn_thread(PCB* pcb, void (*func)())
     tcb->priority=NUM_OF_QUEUES;
 	/* Set the owner */
 	tcb->owner_pcb = pcb;
-
+   
 	/* Initialize the other attributes */
 	tcb->type = NORMAL_THREAD;
 	tcb->state = INIT;
@@ -445,9 +445,11 @@ void yield(enum SCHED_CAUSE cause)
 
 	TCB* current = CURTHREAD; /* Make a local copy of current process, for speed */
 
-    yield_calls++;
 
-    		//switch is written here to have the latest scheduler data available at any time
+
+	Mutex_Lock(&sched_spinlock);
+        yield_calls++;
+        		//switch is written here to have the latest scheduler data available at any time
 		switch(cause){
 		case SCHED_QUANTUM:
 			if(current->priority>0)					//check if priority can go lower, priority++ means it get lower
@@ -469,8 +471,6 @@ void yield(enum SCHED_CAUSE cause)
 			break;
 		default: break;									//every other case leads to the same priority
 	}
-
-	Mutex_Lock(&sched_spinlock);
 
 	/* Update CURTHREAD state */
 	if (current->state == RUNNING)

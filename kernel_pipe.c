@@ -51,59 +51,100 @@ int sys_Pipe(pipe_t* pipe)
     
     p->reader=fcb[0];
     p->writer=fcb[1];
+
 return 0;
 
 }
 
 int pipe_write(void* this,const char *buf, unsigned int size){
 	pipe_cb* p=(pipe_cb*)this;
+	assert(p!=NULL);
 
 	while(isFull(p)==0){
-		kernel_wait(&p->has_space,SCHED_USER);
+		kernel_wait(&p->has_space,SCHED_PIPE);
 	}
 
-	if(p->reader==NULL){
+	if(p->reader==NULL || p->writer==NULL){
 		return -1;
 	}
 
 	int count=0;
-	while(count<size){
+	while(count<size && count<PIPE_BUFFER_SIZE){
 		p->BUFFER[p->w_position]=buf[count]; //copy in pipe buffer  
         p->w_position=(p->w_position+1)%PIPE_BUFFER_SIZE; //next write position for bounded buffer
         count++; 
+        if ((p->w_position+1)%PIPE_BUFFER_SIZE==p->r_position){
+        	kernel_broadcast(&(p->has_data)); 
+    		kernel_wait(&(p->has_space), SCHED_PIPE);
+    		break;
+
+        }
 	}
-  return count; //returns number of bytes copied in pipe buffer
+
+	if (count==size || count==PIPE_BUFFER_SIZE){
+		kernel_broadcast(&(p->has_data));
+  		return count; //returns number of bytes copied in pipe buffer
 
 }
+}
+
 
 int pipe_read(void* this, char *buf, unsigned int size){
 
  pipe_cb* p=(pipe_cb*) this;
- 
+
+ assert(p!=NULL);
  if(isEmpty(p)==0 && p->writer==NULL){ //den 8a gemisei pote
  	return 0;                          //elegxos gia na mhn skaei to test 4
  }
 
+ if(p->reader==NULL){
+ 	return -1;
+ }
+
  while(isEmpty(p)==0){
-   kernel_wait(&p->has_data,SCHED_USER);
+   kernel_wait(&p->has_data,SCHED_PIPE);
  }
 
  int count=0;
- while(count<size){
+//periptwsi pou o writer exei kleisei kai o reader prepei na diavasei o,ti exei meinei
+if (p->writer==NULL){
+	while(p->r_position!=p->w_position && count<size && count<PIPE_BUFFER_SIZE){
+		buf[count]=p->BUFFER[p->r_position];
+   		p->BUFFER[p->r_position]=0;        //read and delete element
+   		p->r_position=(p->r_position+1)%PIPE_BUFFER_SIZE; 
+   		count++;
+
+	}return count;
+
+}
+
+ while(count<size && count<PIPE_BUFFER_SIZE ){
    buf[count]=p->BUFFER[p->r_position];
    p->BUFFER[p->r_position]=0;        //read and delete element
    p->r_position=(p->r_position+1)%PIPE_BUFFER_SIZE; 
    count++;
-  }
-  return count;
-}
+   if ((p->w_position+1)%PIPE_BUFFER_SIZE==p->r_position){
+        	kernel_broadcast(&(p->has_space)); 
+    		kernel_wait(&(p->has_data), SCHED_PIPE);
+    		break;
 
+        }
+  }if (count==size || count==PIPE_BUFFER_SIZE){
+		kernel_broadcast(&(p->has_space));
+  		return count; //returns number of bytes copied in pipe buffer
+
+	}
+}
 
 int pipe_writer_close(void* this){
   pipe_cb* p=(pipe_cb*) this;
+  assert(p!=NULL);
   p->writer=NULL;  //close write end
+   kernel_broadcast(&(p->has_data));
 
   if(p->reader==NULL){ //if read end closed free pipe
+  	p=NULL;
   	free(p);
   }
   return 0;
@@ -111,10 +152,13 @@ int pipe_writer_close(void* this){
 
 int pipe_reader_close(void* this){
   pipe_cb* p=(pipe_cb*) this;
+  assert(p!=NULL);
   p->reader=NULL;
+  kernel_broadcast(&(p->has_space));
 
     if(p->writer==NULL){
   	free(p);
+  	p=NULL;
   }
    return 0;
 }
